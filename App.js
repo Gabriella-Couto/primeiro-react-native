@@ -13,11 +13,22 @@ export default class App extends React.Component{
     let n = [];
 
     for(var i = 0; i <= 5; i++){
-      n.push(Math.floor(Math.random() * 60) + ", ");
+      n.push(Math.floor(Math.random() * 60) + "\n");
     }
-      
+
+    this.checkrepeatedNumbers(n);
+  }
+
+  checkrepeatedNumbers(array){
+    for(var b = 0; b < array.length; b++){
+      let existe = array.indexOf(array[b], b+1)
+      if(existe != -1 || array[b] == 0){
+        array[b] = Math.floor(Math.random() * 60) + "\n";
+      }
+    }
+
     this.setState({
-      number: n
+      number: array
     })
   }
 
@@ -25,10 +36,11 @@ export default class App extends React.Component{
   render (){
     return (
       <View style={styles.container}>
-      <Text>{this.state.number}</Text>
-      <Button
+      <Text style={styles.textBtn}>{this.state.number}</Text>
+      <Button style={styles.btn}
       title="Gerar número aleatório"
       onPress={() => {this.generateRandomNumber()}}
+      color="#737475"
       />
       </View>
     );
@@ -38,8 +50,15 @@ export default class App extends React.Component{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#4ea3a6',
     alignItems: 'center',
     justifyContent: 'center',
+    color: '#dedede'
   },
+  btn: {
+    marginTop: 10
+  },
+  textBtn:{
+    color: '#000'
+  }
 });
